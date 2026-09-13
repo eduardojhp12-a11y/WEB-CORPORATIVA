@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Cyberion</title>
+    <meta name="description" content="Explora nuestro portafolio de proyectos web, plataformas e-commerce y sitios corporativos.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos para los filtros del portafolio */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-bottom: var(--space-12);
+        }
+
+        .filter-btn {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            padding: var(--space-2) var(--space-6);
+            border-radius: var(--border-radius-full);
+            font-weight: 500;
+            transition: all var(--transition-normal);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+            color: var(--color-surface);
+        }
+
+        /* Estilos para los items del portafolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-6);
+        }
+
+        @media (min-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-normal), opacity 0.4s ease, transform 0.4s ease;
+            background-color: var(--color-surface);
+            display: block; /* Para el JS (show/hide) */
+        }
+        
+        .portfolio-item.hidden {
+            display: none;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .portfolio-item__img-wrapper {
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background-color: var(--color-border);
+        }
+
+        .portfolio-item__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-item__img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-item__info {
+            padding: var(--space-4);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .portfolio-item__category {
+            font-size: var(--font-size-xs);
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: var(--space-1);
+            display: block;
+        }
+
+        .portfolio-item__title {
+            font-size: var(--font-size-lg);
+            margin-bottom: 0;
+            color: var(--color-text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a href="index.html" class="nav__logo">Cyberion</a>
+            
+            <nav class="nav__list" aria-label="Menú principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="servicios.html" class="nav__link">Servicios</a>
+                <a href="portafolio.html" class="nav__link nav__link--active">Portafolio</a>
+                <a href="precios.html" class="nav__link">Planes</a>
+                <a href="cotizador.html" class="nav__link">Cotizador</a>
+                <a href="contacto.html" class="btn btn--primary">Contactar</a>
+            </nav>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav class="mobile-menu__list" aria-label="Menú móvil">
+            <a href="index.html" class="mobile-menu__link">Inicio</a>
+            <a href="servicios.html" class="mobile-menu__link">Servicios</a>
+            <a href="portafolio.html" class="mobile-menu__link">Portafolio</a>
+            <a href="precios.html" class="mobile-menu__link">Planes</a>
+            <a href="cotizador.html" class="mobile-menu__link">Cotizador</a>
+            <a href="contacto.html" class="btn btn--primary btn--full mt-4">Contactar</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Page Header -->
+        <section class="section pb-0" style="padding-top: calc(80px + var(--space-12));">
+            <div class="container text-center animate-on-scroll">
+                <span class="badge mb-4">Casos de Éxito</span>
+                <h1 class="hero__title">Nuestro <span class="text-primary">Portafolio</span></h1>
+                <p class="hero__desc">Descubre cómo hemos ayudado a empresas de todos los tamaños a escalar y digitalizar sus negocios con soluciones a medida.</p>
+            </div>
+        </section>
+
+        <!-- Portfolio Gallery -->
+        <section class="section">
+            <div class="container">
+                <!-- Filtros -->
+                <div class="portfolio-filters animate-on-scroll">
+                    <button class="filter-btn active" data-filter="todos">Todos</button>
+                    <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+                    <button class="filter-btn" data-filter="corporativo">Corporativo</button>
+                    <button class="filter-btn" data-filter="landing">Landing Pages</button>
+                </div>
+
+                <!-- Grid -->
+                <div class="portfolio-grid" id="portfolio-grid">
+                    
+                    <!-- Item 1 -->
+                    <article class="portfolio-item animate-on-scroll delay-100" data-category="ecommerce">
+                        <div class="portfolio-item__img-wrapper">
+                            <img src="https://via.placeholder.com/600x400/1E293B/FFFFFF?text=Proyecto+Moda+Ecommerce" alt="Tienda online de ropa" class="portfolio-item__img">
+                        </div>
+                        <div class="portfolio-item__info">
+                            <span class="portfolio-item__category">E-commerce</span>
+                            <h3 class="portfolio-item__title">StyleHub Fashion</h3>
+                        </div>
+                    </article>
+
+                    <!-- Item 2 -->
+                    <article class="portfolio-item animate-on-scroll delay-200" data-category="corporativo">
+                        <div class="portfolio-item__img-wrapper">
+                            <img src="https://via.placeholder.com/600x400/2563EB/FFFFFF?text=Inversiones+Delta" alt="Sitio corporativo Inversiones" class="portfolio-item__img">
+                        </div>
+                        <div class="portfolio-item__info">
+                            <span class="portfolio-item__category">Corporativo</span>
+                            <h3 class="portfolio-item__title">Inversiones Delta</h3>
+                        </div>
+                    </article>
+
+                    <!-- Item 3 -->
+                    <article class="portfolio-item animate-on-scroll delay-300" data-category="landing">
+                        <div class="portfolio-item__img-wrapper">
+                            <img src="https://via.placeholder.com/600x400/10B981/FFFFFF?text=App+SaaS+Launch" alt="Landing page para App" class="portfolio-item__img">
+                        </div>
+                        <div class="portfolio-item__info">
+                            <span class="portfolio-item__category">Landing Pages</span>
+                            <h3 class="portfolio-item__title">SaaS Launch Pro</h3>
+                        </div>
+                    </article>
+
+                    <!-- Item 4 -->
+                    <article class="portfolio-item animate-on-scroll delay-100" data-category="ecommerce">
+                        <div class="portfolio-item__img-wrapper">
+                            <img src="https://via.placeholder.com/600x400/64748B/FFFFFF?text=TechStore" alt="Tienda de tecnología" class="portfolio-item__img">
+                        </div>
+                        <div class="portfolio-item__info">
+                            <span class="portfolio-item__category">E-commerce</span>
+                            <h3 class="portfolio-item__title">TechStore Global</h3>
+                        </div>
+                    </article>
+
+                    <!-- Item 5 -->
+                    <article class="portfolio-item animate-on-scroll delay-200" data-category="corporativo">
+                        <div class="portfolio-item__img-wrapper">
+                            <img src="https://via.placeholder.com/600x400/0F172A/FFFFFF?text=Agencia+Legal" alt="Sitio web bufete de abogados" class="portfolio-item__img">
+                        </div>
+                        <div class="portfolio-item__info">
+                            <span class="portfolio-item__category">Corporativo</span>
+                            <h3 class="portfolio-item__title">LexAbogados</h3>
+                        </div>
+                    </article>
+
+                    <!-- Item 6 -->
+                    <article class="portfolio-item animate-on-scroll delay-300" data-category="landing">
+                        <div class="portfolio-item__img-wrapper">
+                            <img src="https://via.placeholder.com/600x400/EF4444/FFFFFF?text=Evento+Tech" alt="Landing page para conferencia" class="portfolio-item__img">
+                        </div>
+                        <div class="portfolio-item__info">
+                            <span class="portfolio-item__category">Landing Pages</span>
+                            <h3 class="portfolio-item__title">Conferencia AI 2026</h3>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <a href="index.html" class="nav__logo mb-4">Cyberion</a>
+                    <p style="max-width: 300px;">Arquitectos de software y especialistas UX dedicados a construir el futuro digital de tu empresa.</p>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Enlaces Rápidos</h4>
+                    <nav aria-label="Enlaces rápidos de pie de página">
+                        <a href="index.html" class="footer__link">Inicio</a>
+                        <a href="servicios.html" class="footer__link">Nuestros Servicios</a>
+                        <a href="portafolio.html" class="footer__link">Portafolio</a>
+                        <a href="precios.html" class="footer__link">Planes y Precios</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Contacto</h4>
+                    <p class="text-secondary mb-2">contacto@cyberion.com</p>
+                    <p class="text-secondary mb-2">+34 900 123 456</p>
+                    <p class="text-secondary">Av. Innovación 123, Madrid, España</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Cyberion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Base + Lógica del Portafolio -->
+    <script src="main.js"></script>
+    <script src="portafolio.js"></script>
+</body>
+</html>

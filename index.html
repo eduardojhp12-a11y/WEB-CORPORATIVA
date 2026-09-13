@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberion | Agencia de Desarrollo Web y UI/UX</title>
+    <meta name="description" content="Agencia de desarrollo web full-stack especializada en crear experiencias digitales fluidas, interactivas y altamente profesionales.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a href="index.html" class="nav__logo">
+                Cyberion
+            </a>
+            
+            <nav class="nav__list" aria-label="Menú principal">
+                <a href="index.html" class="nav__link nav__link--active">Inicio</a>
+                <a href="servicios.html" class="nav__link">Servicios</a>
+                <a href="portafolio.html" class="nav__link">Portafolio</a>
+                <a href="precios.html" class="nav__link">Planes</a>
+                <a href="cotizador.html" class="nav__link">Cotizador</a>
+                <a href="contacto.html" class="btn btn--primary">Contactar</a>
+            </nav>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <!-- Hamburger Icon -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav class="mobile-menu__list" aria-label="Menú móvil">
+            <a href="index.html" class="mobile-menu__link">Inicio</a>
+            <a href="servicios.html" class="mobile-menu__link">Servicios</a>
+            <a href="portafolio.html" class="mobile-menu__link">Portafolio</a>
+            <a href="precios.html" class="mobile-menu__link">Planes</a>
+            <a href="cotizador.html" class="mobile-menu__link">Cotizador</a>
+            <a href="contacto.html" class="btn btn--primary btn--full mt-4">Contactar</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="container animate-on-scroll">
+                <span class="badge mb-4">Soluciones Digitales Premium</span>
+                <h1 class="hero__title">
+                    Transformamos tu visión en una <br>
+                    <span class="hero__title-highlight">Experiencia Digital Extraordinaria</span>
+                </h1>
+                <p class="hero__desc">
+                    Diseñamos y desarrollamos sitios web corporativos y plataformas e-commerce con las últimas tecnologías, enfocados en maximizar tus conversiones y proyectar máxima profesionalidad.
+                </p>
+                <div class="hero__actions">
+                    <a href="portafolio.html" class="btn btn--primary">Ver Nuestro Trabajo</a>
+                    <a href="cotizador.html" class="btn btn--secondary">Cotizar Proyecto</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logos Section -->
+        <section class="section" style="background-color: var(--color-surface); padding: var(--space-8) 0;">
+            <div class="container">
+                <p class="text-center text-secondary mb-8 font-bold" style="font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 1px;">Empresas que confían en nosotros</p>
+                <div class="flex justify-center align-center gap-8" style="flex-wrap: wrap; opacity: 0.6;">
+                    <div class="animate-on-scroll delay-100"><img src="https://via.placeholder.com/120x40/f8fafc/64748b?text=CLIENTE+1" alt="Logo de Cliente 1" width="120" height="40"></div>
+                    <div class="animate-on-scroll delay-200"><img src="https://via.placeholder.com/120x40/f8fafc/64748b?text=CLIENTE+2" alt="Logo de Cliente 2" width="120" height="40"></div>
+                    <div class="animate-on-scroll delay-300"><img src="https://via.placeholder.com/120x40/f8fafc/64748b?text=CLIENTE+3" alt="Logo de Cliente 3" width="120" height="40"></div>
+                    <div class="animate-on-scroll delay-400"><img src="https://via.placeholder.com/120x40/f8fafc/64748b?text=CLIENTE+4" alt="Logo de Cliente 4" width="120" height="40"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="section" id="ventajas">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-header__tag">Nuestra Ventaja Competitiva</span>
+                    <h2 class="section-header__title">¿Por qué elegir Cyberion?</h2>
+                    <p>No somos solo desarrolladores, somos tus socios estratégicos en el mundo digital.</p>
+                </div>
+
+                <div class="grid grid--3-cols">
+                    <!-- Feature 1 -->
+                    <article class="card animate-on-scroll delay-100">
+                        <div class="card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                        </div>
+                        <h3 class="card__title">Código Limpio y Escalable</h3>
+                        <p class="card__desc">Desarrollamos con tecnologías modernas asegurando un rendimiento óptimo, alta seguridad y facilidad de mantenimiento futuro.</p>
+                    </article>
+                    
+                    <!-- Feature 2 -->
+                    <article class="card animate-on-scroll delay-200">
+                        <div class="card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+                        </div>
+                        <h3 class="card__title">Diseño Orientado a Resultados</h3>
+                        <p class="card__desc">Cada píxel y micro-interacción está pensada bajo principios de UX para aumentar tu tasa de conversión y retención de usuarios.</p>
+                    </article>
+
+                    <!-- Feature 3 -->
+                    <article class="card animate-on-scroll delay-300">
+                        <div class="card__icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </div>
+                        <h3 class="card__title">Soporte Integral 360°</h3>
+                        <p class="card__desc">Desde el diseño arquitectónico hasta el mantenimiento post-lanzamiento. Estamos contigo en todas las fases del proyecto.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section" style="background-color: var(--color-surface);" id="testimonios">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-header__tag">Testimonios</span>
+                    <h2 class="section-header__title">Lo que dicen nuestros clientes</h2>
+                </div>
+
+                <div class="grid grid--2-cols">
+                    <article class="card animate-on-scroll delay-100" style="background-color: var(--color-bg-main); border: none;">
+                        <div style="color: #F59E0B; font-size: 24px; margin-bottom: var(--space-4);">★★★★★</div>
+                        <p class="card__desc" style="font-size: var(--font-size-lg); font-style: italic; margin-bottom: var(--space-6);">"El equipo de Cyberion superó todas nuestras expectativas. La nueva plataforma e-commerce no solo se ve increíble, sino que nuestra tasa de conversión aumentó un 40% en el primer mes."</p>
+                        <div class="flex align-center gap-4">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--color-border); overflow: hidden;">
+                                <img src="https://via.placeholder.com/50" alt="Avatar cliente 1" width="50" height="50">
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0; font-size: var(--font-size-base);">María Rodríguez</h4>
+                                <span class="text-secondary" style="font-size: var(--font-size-sm);">CEO, TechGlobal</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card animate-on-scroll delay-200" style="background-color: var(--color-bg-main); border: none;">
+                        <div style="color: #F59E0B; font-size: 24px; margin-bottom: var(--space-4);">★★★★★</div>
+                        <p class="card__desc" style="font-size: var(--font-size-lg); font-style: italic; margin-bottom: var(--space-6);">"Profesionalismo desde el primer minuto. Su sistema de cotizador y transparencia en precios nos dio mucha confianza. El sitio corporativo que nos entregaron refleja exactamente lo que somos."</p>
+                        <div class="flex align-center gap-4">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background-color: var(--color-border); overflow: hidden;">
+                                <img src="https://via.placeholder.com/50" alt="Avatar cliente 2" width="50" height="50">
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: 0; font-size: var(--font-size-base);">Carlos Mendoza</h4>
+                                <span class="text-secondary" style="font-size: var(--font-size-sm);">Director de Marketing, Inversiones Delta</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section">
+            <div class="container">
+                <div class="card text-center animate-on-scroll" style="background-color: var(--color-primary); color: var(--color-surface); border: none;">
+                    <h2 style="color: var(--color-surface); font-size: var(--font-size-4xl);">¿Listo para escalar tu negocio?</h2>
+                    <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto var(--space-8);">Descubre cuánto costaría tu próximo proyecto con nuestro cotizador interactivo inteligente o habla directamente con nuestro equipo.</p>
+                    <div class="flex justify-center gap-4" style="flex-wrap: wrap;">
+                        <a href="cotizador.html" class="btn" style="background-color: var(--color-surface); color: var(--color-primary);">Probar Cotizador</a>
+                        <a href="contacto.html" class="btn btn--secondary" style="color: var(--color-surface); border-color: var(--color-surface);">Agendar Llamada</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <a href="index.html" class="nav__logo mb-4">
+                        Cyberion
+                    </a>
+                    <p style="max-width: 300px;">Arquitectos de software y especialistas UX dedicados a construir el futuro digital de tu empresa.</p>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Enlaces Rápidos</h4>
+                    <nav aria-label="Enlaces rápidos de pie de página">
+                        <a href="index.html" class="footer__link">Inicio</a>
+                        <a href="servicios.html" class="footer__link">Nuestros Servicios</a>
+                        <a href="portafolio.html" class="footer__link">Portafolio</a>
+                        <a href="precios.html" class="footer__link">Planes y Precios</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Contacto</h4>
+                    <p class="text-secondary mb-2">contacto@cyberion.com</p>
+                    <p class="text-secondary mb-2">+34 900 123 456</p>
+                    <p class="text-secondary">Av. Innovación 123, Madrid, España</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Cyberion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Cyberion</title>
+    <meta name="description" content="Ponte en contacto con Cyberion para iniciar tu próximo proyecto digital.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a href="index.html" class="nav__logo">Cyberion</a>
+            
+            <nav class="nav__list" aria-label="Menú principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="servicios.html" class="nav__link">Servicios</a>
+                <a href="portafolio.html" class="nav__link">Portafolio</a>
+                <a href="precios.html" class="nav__link">Planes</a>
+                <a href="cotizador.html" class="nav__link">Cotizador</a>
+                <a href="contacto.html" class="btn btn--primary">Contactar</a>
+            </nav>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav class="mobile-menu__list" aria-label="Menú móvil">
+            <a href="index.html" class="mobile-menu__link">Inicio</a>
+            <a href="servicios.html" class="mobile-menu__link">Servicios</a>
+            <a href="portafolio.html" class="mobile-menu__link">Portafolio</a>
+            <a href="precios.html" class="mobile-menu__link">Planes</a>
+            <a href="cotizador.html" class="mobile-menu__link">Cotizador</a>
+            <a href="contacto.html" class="btn btn--primary btn--full mt-4">Contactar</a>
+        </nav>
+    </div>
+
+    <main>
+        <section class="section" style="padding-top: calc(80px + var(--space-12));">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-header__tag">Hablemos</span>
+                    <h1 class="hero__title">Ponte en <span class="text-primary">Contacto</span></h1>
+                    <p class="hero__desc">Déjanos tus datos y nos comunicaremos contigo en menos de 24 horas laborables.</p>
+                </div>
+
+                <div class="grid grid--2-cols" style="gap: var(--space-12);">
+                    
+                    <!-- Información de Contacto -->
+                    <div class="animate-on-scroll delay-100">
+                        <h3 class="mb-4">Información de la Agencia</h3>
+                        <p class="text-secondary mb-8">Nuestra sede principal se encuentra en Madrid, pero trabajamos con clientes de todo el mundo de forma remota y asíncrona.</p>
+                        
+                        <div class="flex gap-4 mb-6">
+                            <div class="text-primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: var(--space-1);">Correo Electrónico</h4>
+                                <p class="text-secondary">contacto@cyberion.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mb-6">
+                            <div class="text-primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: var(--space-1);">Teléfono</h4>
+                                <p class="text-secondary">+34 900 123 456</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mb-8">
+                            <div class="text-primary">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <div>
+                                <h4 style="margin-bottom: var(--space-1);">Oficina</h4>
+                                <p class="text-secondary">Av. Innovación 123<br>28001 Madrid, España</p>
+                            </div>
+                        </div>
+
+                        <!-- Placeholder Mapa -->
+                        <div style="width: 100%; height: 200px; background-color: var(--color-border); border-radius: var(--border-radius-md); overflow: hidden; position: relative;">
+                            <img src="https://via.placeholder.com/600x300/E2E8F0/64748B?text=Mapa+Oficinas+Cyberion" alt="Mapa de ubicación de Cyberion" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Contacto -->
+                    <div class="card animate-on-scroll delay-200">
+                        <form id="contact-form" novalidate>
+                            <div class="form-group">
+                                <label for="name" class="form-label">Nombre Completo *</label>
+                                <input type="text" id="name" class="form-input" placeholder="Ej. Juan Pérez">
+                                <span class="form-error" id="name-error">El nombre debe tener al menos 3 caracteres y solo letras.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Correo Electrónico *</label>
+                                <input type="email" id="email" class="form-input" placeholder="juan@empresa.com">
+                                <span class="form-error" id="email-error">Ingresa un formato de correo válido.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Teléfono (Opcional)</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="+34 600 000 000">
+                                <span class="form-error" id="phone-error">El teléfono debe contener solo números, espacios o el símbolo +.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message" class="form-label">Mensaje *</label>
+                                <textarea id="message" class="form-textarea" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+                                <span class="form-error" id="message-error">El mensaje no puede estar vacío (mín. 10 caracteres).</span>
+                            </div>
+
+                            <button type="submit" class="btn btn--primary btn--full mt-4" id="submit-btn">Enviar Mensaje</button>
+                            
+                            <!-- Success Message (hidden by default) -->
+                            <div id="form-success" style="display: none; background-color: rgba(16, 185, 129, 0.1); color: var(--color-success); padding: var(--space-3); border-radius: var(--border-radius-md); margin-top: var(--space-4); text-align: center;">
+                                ¡Gracias! Tu mensaje ha sido enviado correctamente.
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <a href="index.html" class="nav__logo mb-4">Cyberion</a>
+                    <p style="max-width: 300px;">Arquitectos de software y especialistas UX dedicados a construir el futuro digital de tu empresa.</p>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Enlaces Rápidos</h4>
+                    <nav aria-label="Enlaces rápidos de pie de página">
+                        <a href="index.html" class="footer__link">Inicio</a>
+                        <a href="servicios.html" class="footer__link">Nuestros Servicios</a>
+                        <a href="portafolio.html" class="footer__link">Portafolio</a>
+                        <a href="precios.html" class="footer__link">Planes y Precios</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Contacto</h4>
+                    <p class="text-secondary mb-2">contacto@cyberion.com</p>
+                    <p class="text-secondary mb-2">+34 900 123 456</p>
+                    <p class="text-secondary">Av. Innovación 123, Madrid, España</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Cyberion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="contacto.js"></script>
+</body>
+</html>

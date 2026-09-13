@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador Interactivo | Cyberion</title>
+    <meta name="description" content="Calcula el presupuesto estimado de tu próximo proyecto web en tiempo real.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos para el Cotizador (Wizard) */
+        .wizard-container {
+            background-color: var(--color-surface);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .wizard-header {
+            background-color: var(--color-bg-main);
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .wizard-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+            position: relative;
+        }
+
+        .wizard-progress::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--color-border);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .wizard-step-indicator {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--color-border);
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+            transition: all var(--transition-normal);
+        }
+
+        .wizard-step-indicator.active {
+            background-color: var(--color-primary);
+            color: var(--color-surface);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .wizard-step-indicator.completed {
+            background-color: var(--color-success);
+            color: var(--color-surface);
+        }
+
+        .wizard-body {
+            padding: var(--space-8) var(--space-6);
+        }
+
+        .wizard-step {
+            display: none;
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .wizard-step.active {
+            display: block;
+        }
+
+        .wizard-footer {
+            padding: var(--space-4) var(--space-6);
+            background-color: var(--color-bg-main);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Opciones de selección (Radio y Checkboxes personalizados) */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-4);
+            margin-top: var(--space-4);
+        }
+
+        @media (min-width: 640px) {
+            .option-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .option-card {
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--space-4);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .option-card:hover {
+            border-color: var(--color-secondary);
+            background-color: rgba(37, 99, 235, 0.02);
+        }
+
+        .option-card input[type="radio"],
+        .option-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .option-card.selected {
+            border-color: var(--color-primary);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .option-icon {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-2);
+            color: var(--color-text-secondary);
+        }
+
+        .option-card.selected .option-icon {
+            color: var(--color-primary);
+        }
+
+        .option-title {
+            font-weight: 600;
+            color: var(--color-text-main);
+            margin-bottom: var(--space-1);
+        }
+
+        /* Bloque de presupuesto fijo */
+        .budget-display {
+            position: fixed;
+            bottom: var(--space-4);
+            right: var(--space-4);
+            background-color: var(--color-text-main);
+            color: var(--color-surface);
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateY(150%);
+            transition: transform var(--transition-normal);
+        }
+
+        .budget-display.visible {
+            transform: translateY(0);
+        }
+
+        .budget-label {
+            font-size: var(--font-size-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-secondary);
+        }
+
+        .budget-amount {
+            font-size: var(--font-size-3xl);
+            font-family: var(--font-family-heading);
+            font-weight: 700;
+            color: var(--color-success);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a href="index.html" class="nav__logo">Cyberion</a>
+            
+            <nav class="nav__list" aria-label="Menú principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="servicios.html" class="nav__link">Servicios</a>
+                <a href="portafolio.html" class="nav__link">Portafolio</a>
+                <a href="precios.html" class="nav__link">Planes</a>
+                <a href="cotizador.html" class="nav__link nav__link--active">Cotizador</a>
+                <a href="contacto.html" class="btn btn--primary">Contactar</a>
+            </nav>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav class="mobile-menu__list" aria-label="Menú móvil">
+            <a href="index.html" class="mobile-menu__link">Inicio</a>
+            <a href="servicios.html" class="mobile-menu__link">Servicios</a>
+            <a href="portafolio.html" class="mobile-menu__link">Portafolio</a>
+            <a href="precios.html" class="mobile-menu__link">Planes</a>
+            <a href="cotizador.html" class="mobile-menu__link">Cotizador</a>
+            <a href="contacto.html" class="btn btn--primary btn--full mt-4">Contactar</a>
+        </nav>
+    </div>
+
+    <main>
+        <section class="section" style="padding-top: calc(80px + var(--space-12));">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <h1 class="hero__title">Calcula tu <span class="text-primary">Presupuesto</span></h1>
+                    <p class="hero__desc">Responde unas breves preguntas para obtener una estimación inmediata del costo de tu proyecto web.</p>
+                </div>
+
+                <div class="wizard-container animate-on-scroll delay-100">
+                    <div class="wizard-header">
+                        <div class="wizard-progress">
+                            <div class="wizard-step-indicator active" id="indicator-1">1</div>
+                            <div class="wizard-step-indicator" id="indicator-2">2</div>
+                            <div class="wizard-step-indicator" id="indicator-3">3</div>
+                            <div class="wizard-step-indicator" id="indicator-4">4</div>
+                        </div>
+                        <h2 class="text-center" id="step-title" style="margin-bottom: 0;">¿Qué tipo de proyecto necesitas?</h2>
+                    </div>
+
+                    <div class="wizard-body">
+                        
+                        <!-- Paso 1: Tipo de Proyecto -->
+                        <div class="wizard-step active" id="step-1">
+                            <div class="option-grid">
+                                <label class="option-card" data-price="500" data-group="projectType">
+                                    <input type="radio" name="projectType" value="landing">
+                                    <div class="option-icon">📄</div>
+                                    <div class="option-title">Landing Page</div>
+                                    <p class="text-secondary" style="font-size: var(--font-size-sm);">Página única para conversiones rápidas.</p>
+                                </label>
+                                <label class="option-card" data-price="1200" data-group="projectType">
+                                    <input type="radio" name="projectType" value="corporativo">
+                                    <div class="option-icon">🏢</div>
+                                    <div class="option-title">Sitio Corporativo</div>
+                                    <p class="text-secondary" style="font-size: var(--font-size-sm);">Sitio multi-página informativo e institucional.</p>
+                                </label>
+                                <label class="option-card" data-price="2500" data-group="projectType">
+                                    <input type="radio" name="projectType" value="ecommerce">
+                                    <div class="option-icon">🛒</div>
+                                    <div class="option-title">E-commerce</div>
+                                    <p class="text-secondary" style="font-size: var(--font-size-sm);">Tienda online completa con carrito y pagos.</p>
+                                </label>
+                                <label class="option-card" data-price="4000" data-group="projectType">
+                                    <input type="radio" name="projectType" value="app">
+                                    <div class="option-icon">💻</div>
+                                    <div class="option-title">Plataforma a Medida</div>
+                                    <p class="text-secondary" style="font-size: var(--font-size-sm);">Aplicación web compleja (SaaS, Portal).</p>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2: Diseño y Páginas -->
+                        <div class="wizard-step" id="step-2">
+                            <h3 class="mb-4">¿Cuántas vistas o páginas tendrá aproximadamente?</h3>
+                            <div class="option-grid">
+                                <label class="option-card" data-price="0" data-group="pages">
+                                    <input type="radio" name="pages" value="1-5">
+                                    <div class="option-title">1 - 5 páginas</div>
+                                </label>
+                                <label class="option-card" data-price="400" data-group="pages">
+                                    <input type="radio" name="pages" value="6-10">
+                                    <div class="option-title">6 - 10 páginas</div>
+                                </label>
+                                <label class="option-card" data-price="800" data-group="pages">
+                                    <input type="radio" name="pages" value="11-20">
+                                    <div class="option-title">11 - 20 páginas</div>
+                                </label>
+                                <label class="option-card" data-price="1500" data-group="pages">
+                                    <input type="radio" name="pages" value="20+">
+                                    <div class="option-title">Más de 20 páginas</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3: Características Extra (Multi-select) -->
+                        <div class="wizard-step" id="step-3">
+                            <h3 class="mb-4">Selecciona las funcionalidades adicionales:</h3>
+                            <div class="option-grid">
+                                <label class="option-card" data-price="400" data-group="features">
+                                    <input type="checkbox" name="features" value="multilang">
+                                    <div class="option-icon">🌍</div>
+                                    <div class="option-title">Multi-idioma</div>
+                                </label>
+                                <label class="option-card" data-price="350" data-group="features">
+                                    <input type="checkbox" name="features" value="seo">
+                                    <div class="option-icon">🚀</div>
+                                    <div class="option-title">SEO Avanzado</div>
+                                </label>
+                                <label class="option-card" data-price="600" data-group="features">
+                                    <input type="checkbox" name="features" value="auth">
+                                    <div class="option-icon">🔐</div>
+                                    <div class="option-title">Registro / Login de Usuarios</div>
+                                </label>
+                                <label class="option-card" data-price="800" data-group="features">
+                                    <input type="checkbox" name="features" value="api">
+                                    <div class="option-icon">🔌</div>
+                                    <div class="option-title">Integración API externa</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Paso 4: Finalizar -->
+                        <div class="wizard-step" id="step-4">
+                            <div class="text-center mb-6">
+                                <h3>¡Presupuesto Calculado!</h3>
+                                <p class="text-secondary">Déjanos tus datos para enviarte el desglose detallado a tu correo.</p>
+                            </div>
+                            
+                            <form id="quote-form">
+                                <div class="form-group">
+                                    <label for="quote-name" class="form-label">Nombre Completo</label>
+                                    <input type="text" id="quote-name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="quote-email" class="form-label">Correo Electrónico</label>
+                                    <input type="email" id="quote-email" class="form-input" required>
+                                </div>
+                                
+                                <!-- Alert for success -->
+                                <div id="quote-success" style="display: none; background-color: rgba(16, 185, 129, 0.1); color: var(--color-success); padding: var(--space-3); border-radius: var(--border-radius-md); margin-bottom: var(--space-4); text-align: center;">
+                                    ¡Cotización enviada con éxito! Revisa tu bandeja de entrada.
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <div class="wizard-footer">
+                        <button class="btn btn--secondary" id="btn-prev" style="visibility: hidden;">Atrás</button>
+                        <button class="btn btn--primary" id="btn-next" disabled>Siguiente Paso</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Presupuesto Flotante -->
+        <div class="budget-display" id="budget-display">
+            <span class="budget-label">Presupuesto Estimado</span>
+            <span class="budget-amount">$<span id="total-price">0</span></span>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <a href="index.html" class="nav__logo mb-4">Cyberion</a>
+                    <p style="max-width: 300px;">Arquitectos de software y especialistas UX dedicados a construir el futuro digital de tu empresa.</p>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Enlaces Rápidos</h4>
+                    <nav aria-label="Enlaces rápidos de pie de página">
+                        <a href="index.html" class="footer__link">Inicio</a>
+                        <a href="servicios.html" class="footer__link">Nuestros Servicios</a>
+                        <a href="portafolio.html" class="footer__link">Portafolio</a>
+                        <a href="precios.html" class="footer__link">Planes y Precios</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Contacto</h4>
+                    <p class="text-secondary mb-2">contacto@cyberion.com</p>
+                    <p class="text-secondary mb-2">+34 900 123 456</p>
+                    <p class="text-secondary">Av. Innovación 123, Madrid, España</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Cyberion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="cotizador.js"></script>
+</body>
+</html>

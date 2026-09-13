@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes y Precios | Cyberion</title>
+    <meta name="description" content="Nuestros planes de desarrollo web. Transparencia y escalabilidad para cualquier tamaño de negocio.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos para la sección de precios */
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-12);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-border);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--color-primary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .pricing-card {
+            position: relative;
+            padding: var(--space-8) var(--space-6);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .pricing-card--popular {
+            border: 2px solid var(--color-primary);
+            box-shadow: var(--shadow-lg);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .pricing-card--popular .badge-popular {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--color-primary);
+            color: var(--color-surface);
+            padding: var(--space-1) var(--space-4);
+            border-radius: var(--border-radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .pricing-card__price {
+            font-size: var(--font-size-5xl);
+            font-family: var(--font-family-heading);
+            font-weight: 700;
+            color: var(--color-text-main);
+            margin: var(--space-4) 0;
+        }
+
+        .pricing-card__price span {
+            font-size: var(--font-size-base);
+            color: var(--color-text-secondary);
+            font-weight: 400;
+        }
+
+        .pricing-card__features {
+            margin-top: var(--space-6);
+            margin-bottom: var(--space-8);
+            flex-grow: 1;
+        }
+
+        .pricing-card__feature {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-3);
+            color: var(--color-text-secondary);
+        }
+
+        .pricing-card__feature svg {
+            color: var(--color-success);
+            flex-shrink: 0;
+        }
+
+        .pricing-card__feature.disabled {
+            color: #CBD5E1;
+            text-decoration: line-through;
+        }
+
+        .pricing-card__feature.disabled svg {
+            color: #CBD5E1;
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-card--popular {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a href="index.html" class="nav__logo">Cyberion</a>
+            
+            <nav class="nav__list" aria-label="Menú principal">
+                <a href="index.html" class="nav__link">Inicio</a>
+                <a href="servicios.html" class="nav__link">Servicios</a>
+                <a href="portafolio.html" class="nav__link">Portafolio</a>
+                <a href="precios.html" class="nav__link nav__link--active">Planes</a>
+                <a href="cotizador.html" class="nav__link">Cotizador</a>
+                <a href="contacto.html" class="btn btn--primary">Contactar</a>
+            </nav>
+
+            <button class="nav__toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <nav class="mobile-menu__list" aria-label="Menú móvil">
+            <a href="index.html" class="mobile-menu__link">Inicio</a>
+            <a href="servicios.html" class="mobile-menu__link">Servicios</a>
+            <a href="portafolio.html" class="mobile-menu__link">Portafolio</a>
+            <a href="precios.html" class="mobile-menu__link">Planes</a>
+            <a href="cotizador.html" class="mobile-menu__link">Cotizador</a>
+            <a href="contacto.html" class="btn btn--primary btn--full mt-4">Contactar</a>
+        </nav>
+    </div>
+
+    <main>
+        <section class="section pb-0" style="padding-top: calc(80px + var(--space-12));">
+            <div class="container text-center animate-on-scroll">
+                <h1 class="hero__title">Planes y <span class="text-primary">Precios</span></h1>
+                <p class="hero__desc">Precios transparentes sin costos ocultos. Encuentra el plan que mejor se adapte al tamaño de tu proyecto.</p>
+                
+                <!-- Toggle Mensual/Anual -->
+                <div class="pricing-toggle">
+                    <span class="font-bold" id="label-monthly">Mensual</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="billing-toggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="text-secondary" id="label-annual">Anual (Ahorra 20%)</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section pt-0">
+            <div class="container">
+                <div class="grid grid--3-cols" style="align-items: center;">
+                    
+                    <!-- Plan Básico -->
+                    <article class="card pricing-card animate-on-scroll delay-100">
+                        <h3 class="card__title">Básico</h3>
+                        <p class="text-secondary">Para startups y pequeños negocios.</p>
+                        <div class="pricing-card__price">
+                            $<span class="price-value" data-monthly="99" data-annual="79">99</span><span>/mes</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Sitio web de 5 páginas</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Diseño Responsive</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Optimización SEO Básica</span>
+                            </li>
+                            <li class="pricing-card__feature disabled">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span>Integración E-commerce</span>
+                            </li>
+                            <li class="pricing-card__feature disabled">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span>Soporte Prioritario 24/7</span>
+                            </li>
+                        </ul>
+                        <a href="contacto.html" class="btn btn--secondary btn--full">Elegir Plan</a>
+                    </article>
+
+                    <!-- Plan Profesional (Destacado) -->
+                    <article class="card pricing-card pricing-card--popular animate-on-scroll delay-200">
+                        <div class="badge-popular">Recomendado</div>
+                        <h3 class="card__title">Profesional</h3>
+                        <p class="text-secondary">Ideal para empresas en crecimiento.</p>
+                        <div class="pricing-card__price text-primary">
+                            $<span class="price-value" data-monthly="199" data-annual="159">199</span><span>/mes</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span class="font-bold">Páginas Ilimitadas</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Diseño UX/UI Premium</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>SEO Técnico Avanzado</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Integración E-commerce (hasta 500 prod.)</span>
+                            </li>
+                            <li class="pricing-card__feature disabled">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span>Soporte Prioritario 24/7</span>
+                            </li>
+                        </ul>
+                        <a href="contacto.html" class="btn btn--primary btn--full">Elegir Plan</a>
+                    </article>
+
+                    <!-- Plan Enterprise -->
+                    <article class="card pricing-card animate-on-scroll delay-300">
+                        <h3 class="card__title">Enterprise</h3>
+                        <p class="text-secondary">Soluciones a medida para corporaciones.</p>
+                        <div class="pricing-card__price">
+                            $<span class="price-value" data-monthly="499" data-annual="399">499</span><span>/mes</span>
+                        </div>
+                        <ul class="pricing-card__features">
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Todo lo del plan Profesional</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>E-commerce Ilimitado</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Arquitectura Cloud Dedicada</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Desarrollo de Funciones Personalizadas</span>
+                            </li>
+                            <li class="pricing-card__feature">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span class="font-bold">Soporte Prioritario 24/7</span>
+                            </li>
+                        </ul>
+                        <a href="contacto.html" class="btn btn--secondary btn--full">Contactar Ventas</a>
+                    </article>
+
+                </div>
+                
+                <!-- Info extra -->
+                <div class="text-center mt-8 animate-on-scroll">
+                    <p class="text-secondary">¿Tienes requerimientos muy específicos?</p>
+                    <a href="cotizador.html" class="text-primary font-bold">Utiliza nuestro Cotizador Interactivo &rarr;</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <a href="index.html" class="nav__logo mb-4">Cyberion</a>
+                    <p style="max-width: 300px;">Arquitectos de software y especialistas UX dedicados a construir el futuro digital de tu empresa.</p>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Enlaces Rápidos</h4>
+                    <nav aria-label="Enlaces rápidos de pie de página">
+                        <a href="index.html" class="footer__link">Inicio</a>
+                        <a href="servicios.html" class="footer__link">Nuestros Servicios</a>
+                        <a href="portafolio.html" class="footer__link">Portafolio</a>
+                        <a href="precios.html" class="footer__link">Planes y Precios</a>
+                    </nav>
+                </div>
+                <div>
+                    <h4 class="footer__col-title">Contacto</h4>
+                    <p class="text-secondary mb-2">contacto@cyberion.com</p>
+                    <p class="text-secondary mb-2">+34 900 123 456</p>
+                    <p class="text-secondary">Av. Innovación 123, Madrid, España</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Cyberion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="precios.js"></script>
+</body>
+</html>
